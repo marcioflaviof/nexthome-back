@@ -1,7 +1,7 @@
 SELECT [id],
         [username],
         [email],
-        [passwordhash],
+        [password],
         [cellphone],
         [cpf],
         [address]

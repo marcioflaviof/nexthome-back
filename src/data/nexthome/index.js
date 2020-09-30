@@ -10,7 +10,22 @@ const register = async({sql, getConnection}) => {
         return await request.query(sqlQueries.getUsers)
     }
 
+    const addUsers = async ({ username, email, password, cellphone, cpf, address }) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        var binBuff = Buffer.alloc(1, password, 'base64')
+        request.input("username", sql.NVarChar(50), username)
+        request.input("email", sql.NVarChar(50), email)
+        request.input("password", sql.VarBinary(50), binBuff)
+        request.input("cellphone", sql.NVarChar(20), cellphone)
+        request.input("cpf", sql.NVarChar(20), cpf)
+        request.input("address", sql.NVarChar(1000), address)
+        return await request.query(sqlQueries.addUsers)
+        
+    }
+
     return {
+        addUsers,
         getUsers
     }
 }
