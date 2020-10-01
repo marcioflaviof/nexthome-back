@@ -13,7 +13,7 @@ const register = async({sql, getConnection}) => {
     const addUsers = async ({ username, email, password, cellphone, cpf, address }) => {
         const cnx = await getConnection()
         const request = await cnx.request()
-        var binBuff = Buffer.alloc(1, password, 'base64')
+        var binBuff = Buffer.from(password, 'base64')
         request.input("username", sql.NVarChar(50), username)
         request.input("email", sql.NVarChar(50), email)
         request.input("password", sql.VarBinary(50), binBuff)
@@ -24,8 +24,18 @@ const register = async({sql, getConnection}) => {
         
     }
 
+    const deleteUsers = async ({ id, username }) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        request.input( "id", sql.Int, id)
+        request.input( "username", sql.NVarChar(50), username)
+        console.log("Ta chegando aqui", id, username)
+        return request.query(sqlQueries.deleteUsers)
+    }
+
     return {
         addUsers,
+        deleteUsers,
         getUsers
     }
 }
