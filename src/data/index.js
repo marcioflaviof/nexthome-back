@@ -1,4 +1,5 @@
-const users = require('./nexthome')
+const users = require('./users')
+const houses = require('./houses')
 const sql = require('mssql')
 
 
@@ -33,7 +34,8 @@ const client = async(server, config) => {
     }
 
     return {
-        users: await users.register({ sql, getConnection })
+        users: await users.register({ sql, getConnection }),
+        houses: await houses.register({ sql, getConnection })
     }
 }
 

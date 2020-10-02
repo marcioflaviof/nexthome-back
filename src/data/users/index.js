@@ -1,7 +1,7 @@
 const utils = require('../utils')
 
 const register = async({sql, getConnection}) => {
-    const sqlQueries = await utils.loadSqlQueries('nexthome')
+    const sqlQueries = await utils.loadSqlQueries('users')
 
     const getUsers = async name => {
         const cnx = await getConnection()
