@@ -1,12 +1,12 @@
 module.exports.register = async server => {
     server.route( {
         method: "GET",
-        path: "/house",
+        path: "/visit",
         handler: async request => {
             try {
                 const db = request.server.plugins.sql.client
-                const houseId = 1
-                const res = await db.houses.getHouses(houseId)
+                const visitId = 1
+                const res = await db.visits.getVisits(visitId)
 
                 return res.recordset
             } catch(err) {
@@ -17,12 +17,12 @@ module.exports.register = async server => {
 
     server.route( {
         method: "POST",
-        path: "/register/house",
+        path: "/register/visit",
         handler: async request => {
             try {
                 const db = request.server.plugins.sql.client
-                const {cod_user, landSize, price, address, description} = request.payload
-                const res = await db.houses.addHouses({cod_user, landSize, price, address, description})
+                const {cod_user, cod_house, hour_visit, day_visit, is_confirmed} = request.payload
+                const res = await db.visits.addVisits({cod_user, cod_house, hour_visit, day_visit, is_confirmed})
                 return res.recordset[ 0 ]
             } catch(err) {
                 console.log(err)
@@ -32,14 +32,13 @@ module.exports.register = async server => {
 
     server.route( {
         method: "PUT",
-        path: "/update/house/{id}/{cod_user}",
+        path: "/update/visit/{id}",
         handler: async (request, h) => {
             try {
                 const id = request.params.id
-                const cod_user = request.params.cod_user
                 const db = request.server.plugins.sql.client
-                const {landSize, price, address, description} = request.payload
-                const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description})
+                const {cod_user, cod_house, hour_visit, day_visit, is_confirmed} = request.payload
+                const res = await db.visits.updateVisits({id, cod_user, cod_house, hour_visit, day_visit, is_confirmed})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {
@@ -50,13 +49,14 @@ module.exports.register = async server => {
 
     server.route( {
         method: "DELETE",
-        path: "/delete/house/{id}/{cod_user}",
+        path: "/delete/visit/{id}/{cod_user}/{cod_house}",
         handler: async (request, h) => {
             try{
                 const id = request.params.id
                 const cod_user = request.params.cod_user
+                const cod_house = request.params.cod_house
                 const db = request.server.plugins.sql.client
-                const res = await db.houses.deleteHouses({id, cod_user})
+                const res = await db.visits.deleteVisits({id, cod_user, cod_house})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {

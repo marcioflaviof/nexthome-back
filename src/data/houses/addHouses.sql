@@ -1,6 +1,7 @@
 INSERT INTO [nexthome].[dbo].[houses]
 (
-    [landSize]
+      [cod_user]
+      ,[landSize]
       ,[price]
       ,[address]
       ,[description]
@@ -8,7 +9,8 @@ INSERT INTO [nexthome].[dbo].[houses]
 )
 VALUES
 (
-   @landSize
+   @cod_user
+   , @landSize
    , @price
    , @address
    , @description

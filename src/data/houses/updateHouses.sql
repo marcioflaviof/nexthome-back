@@ -3,8 +3,8 @@ SET    [landSize] = @landSize
       ,[price] = @price
       ,[address] = @address
       ,[description] = @description
-WHERE   [id] = @id;
-
+WHERE   [id] = @id
+AND [cod_user] = @cod_user;
 
 SELECT  [id]
       ,[landSize]
@@ -13,4 +13,5 @@ SELECT  [id]
       ,[description]
 
 FROM    [dbo].[houses]
-WHERE   [id] = @id;
+WHERE   [id] = @id
+AND [cod_user] = @cod_user;

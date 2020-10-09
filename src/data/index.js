@@ -1,5 +1,6 @@
 const users = require('./users')
 const houses = require('./houses')
+const visits = require('./visits')
 const sql = require('mssql')
 
 
@@ -35,7 +36,8 @@ const client = async(server, config) => {
 
     return {
         users: await users.register({ sql, getConnection }),
-        houses: await houses.register({ sql, getConnection })
+        houses: await houses.register({ sql, getConnection }),
+        visits: await visits.register({ sql, getConnection })
     }
 }
 

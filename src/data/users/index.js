@@ -3,10 +3,10 @@ const utils = require('../utils')
 const register = async({sql, getConnection}) => {
     const sqlQueries = await utils.loadSqlQueries('users')
 
-    const getUsers = async name => {
+    const getUsers = async id => {
         const cnx = await getConnection()
         const request = await cnx.request()
-        request.input('name', sql.VarChar(50), name)
+        request.input('id', sql.VarChar(50), id)
         return await request.query(sqlQueries.getUsers)
     }
 
@@ -44,7 +44,7 @@ const register = async({sql, getConnection}) => {
         const request = await cnx.request()
         request.input( "id", sql.Int, id)
         request.input( "username", sql.NVarChar(50), username)
-        console.log("Ta chegando aqui", id, username)
+
         return request.query(sqlQueries.deleteUsers)
     }
 
