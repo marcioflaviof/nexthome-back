@@ -1,12 +1,15 @@
 module.exports.register = async server => {
     server.route( {
         method: "GET",
-        path: "/visit",
+        path: "/visit/{id}/{cod_user}/{cod_house}",
         handler: async request => {
             try {
                 const db = request.server.plugins.sql.client
-                const visitId = 1
-                const res = await db.visits.getVisits(visitId)
+                const id = request.params.id
+                const cod_user = request.params.cod_user
+                const cod_house = request.params.cod_house
+                
+                const res = await db.visits.getVisits({id, cod_user, cod_house})
 
                 return res.recordset
             } catch(err) {

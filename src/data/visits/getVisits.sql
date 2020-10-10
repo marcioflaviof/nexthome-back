@@ -1,7 +1,4 @@
-SELECT [id],
-        [cod_user],
-        [cod_house],
-        [hour_visit],
-        [day_visit],
-        [is_confirmed]
-  FROM [nexthome].[dbo].[visits]
+SELECT * FROM [dbo].[visits]
+WHERE [id] = @id
+AND [cod_user] = @cod_user
+AND [cod_house] = @cod_house;

@@ -6,9 +6,11 @@ const register = async({sql, getConnection}) => {
     const getUsers = async id => {
         const cnx = await getConnection()
         const request = await cnx.request()
-        request.input('id', sql.VarChar(50), id)
+        request.input( "id", sql.Int, id)
+        
         return await request.query(sqlQueries.getUsers)
     }
+    
 
     const addUsers = async ({ username, email, password, cellphone, cpf, address }) => {
         const cnx = await getConnection()
