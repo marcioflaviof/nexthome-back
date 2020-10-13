@@ -1,3 +1,5 @@
+const validation = require('./validation/validationUser')
+
 module.exports.register = async server => {
     server.route( {
         method: "GET",
@@ -20,8 +22,11 @@ module.exports.register = async server => {
         path: "/register/user",
         handler: async request => {
             try {
+                const {error, value} = validation.validationUser(request.payload)
+                if (error){return(error.message)}
+                
                 const db = request.server.plugins.sql.client
-                const {username, email, password, cellphone, cpf, address} = request.payload
+                const {username, email, password, cellphone, cpf, address} = value
                 const res = await db.users.addUsers({username, email, password, cellphone, cpf, address})
                 return res.recordset[ 0 ]
             } catch(err) {
