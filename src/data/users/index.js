@@ -41,11 +41,11 @@ const register = async({sql, getConnection}) => {
         return await request.query(sqlQueries.updateUsers)
     }
 
-    const deleteUsers = async ({ id, username }) => {
+    const deleteUsers = async ({ id, email }) => {
         const cnx = await getConnection()
         const request = await cnx.request()
         request.input( "id", sql.Int, id)
-        request.input( "username", sql.NVarChar(50), username)
+        request.input("email", sql.NVarChar(50), email)
 
         return request.query(sqlQueries.deleteUsers)
     }

@@ -58,9 +58,9 @@ module.exports.register = async server => {
         handler: async (request, h) => {
             try{
                 const id = request.params.id
-                const username = request.payload.username
+                const email = request.payload.email
                 const db = request.server.plugins.sql.client
-                const res = await db.users.deleteUsers({id, username})
+                const res = await db.users.deleteUsers({id, email})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {

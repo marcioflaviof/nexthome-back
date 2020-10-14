@@ -5,8 +5,9 @@ SET     [username] = @username
        , [cellphone] = @cellphone
        , [cpf] = @cpf
        , [address] = @address
+       , [modified_at] = CURRENT_TIMESTAMP
 WHERE   [id] = @id
- AND   [username] = @username;
+ AND   [email] = @email;
 
 SELECT  [id]
        , [username]
@@ -17,4 +18,4 @@ SELECT  [id]
        , [address]
 FROM    [dbo].[users]
 WHERE   [id] = @id
- AND   [username] = @username;
+ AND   [email] = @email;

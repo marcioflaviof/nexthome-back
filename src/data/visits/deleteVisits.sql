@@ -1,4 +1,9 @@
-DELETE  [dbo].[visits]
+ UPDATE [dbo].[visits]
+SET     [is_deleted] = 1
+
 WHERE   [id] = @id
-AND [cod_house] = @cod_house
-AND [cod_user] = @cod_user;
+
+SELECT  [id]
+
+FROM    [dbo].[visits]
+WHERE   [id] = @id;

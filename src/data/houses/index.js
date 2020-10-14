@@ -3,11 +3,10 @@ const utils = require('../utils')
 const register = async({sql, getConnection}) => {
     const sqlQueries = await utils.loadSqlQueries('houses')
 
-    const getHouses = async ({id, cod_user}) => {
+    const getHouses = async ({id}) => {
         const cnx = await getConnection()
         const request = await cnx.request()
         request.input( "id", sql.Int, id)
-        request.input( "cod_user", sql.Int, cod_user)
         
         return await request.query(sqlQueries.getHouses)
     }
