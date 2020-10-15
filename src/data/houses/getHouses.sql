@@ -1,2 +1,3 @@
 SELECT * FROM [dbo].[houses]
-WHERE [id] = @id;
+WHERE [id] = @id
+AND NOT [is_deleted];
