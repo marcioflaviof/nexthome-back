@@ -1,3 +1,5 @@
+const validation = require('./validation/validationHouse')
+
 module.exports.register = async server => {
     server.route( {
         method: "GET",
@@ -20,8 +22,11 @@ module.exports.register = async server => {
         path: "/register/house",
         handler: async request => {
             try {
+                const {error, value} = validation.validationHouse(request.payload)
+                if (error){return(error.message)}
+
                 const db = request.server.plugins.sql.client
-                const {cod_user, landSize, price, address, description} = request.payload
+                const {cod_user, landSize, price, address, description} = value
                 const res = await db.houses.addHouses({cod_user, landSize, price, address, description})
                 return res.recordset[ 0 ]
             } catch(err) {

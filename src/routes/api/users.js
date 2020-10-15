@@ -24,7 +24,7 @@ module.exports.register = async server => {
             try {
                 const {error, value} = validation.validationUser(request.payload)
                 if (error){return(error.message)}
-                
+
                 const db = request.server.plugins.sql.client
                 const {username, email, password, cellphone, cpf, address} = value
                 const res = await db.users.addUsers({username, email, password, cellphone, cpf, address})
@@ -40,9 +40,12 @@ module.exports.register = async server => {
         path: "/update/user/{id}",
         handler: async (request, h) => {
             try {
+                const {error, value} = validation.validationUser(request.payload)
+                if (error){return(error.message)}
+
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
-                const {username, email, password, cellphone, cpf, address} = request.payload
+                const {username, email, password, cellphone, cpf, address} = value
                 const res = await db.users.updateUsers({id, username, email, password, cellphone, cpf, address})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"

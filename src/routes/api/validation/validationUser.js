@@ -26,7 +26,7 @@ function validationUser ( user ) {
             .length(11),
         
         address: Joi.string()
-            .max(2000)
+            .max(1000)
             .required(),
     })
 
