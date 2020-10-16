@@ -1,3 +1,3 @@
 SELECT * FROM [dbo].[visits]
-WHERE [id] = @id
+WHERE [cod_house] = @cod_house
 AND [is_deleted] = 0;

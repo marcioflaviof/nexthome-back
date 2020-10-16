@@ -1,12 +1,12 @@
 module.exports.register = async server => {
     server.route( {
         method: "GET",
-        path: "/visit/{id}",
+        path: "/visit/{cod_house}",
         handler: async request => {
             try {
                 const db = request.server.plugins.sql.client
-                const id = request.params.id
-                const res = await db.visits.getVisits({id})
+                const cod_house = request.params.cod_house
+                const res = await db.visits.getVisits({cod_house})
 
                 return res.recordset
             } catch(err) {
@@ -14,6 +14,23 @@ module.exports.register = async server => {
             }
         }
     })
+
+    server.route( {
+        method: "GET",
+        path: "/visit_user/{cod_user}",
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const cod_user = request.params.cod_user
+                const res = await db.visits.getVisitUser({cod_user})
+
+                return res.recordset
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    })
+
 
     server.route( {
         method: "POST",

@@ -4,12 +4,21 @@ const utils = require('../utils')
 const register = async({sql, getConnection}) => {
     const sqlQueries = await utils.loadSqlQueries('visits')
 
-    const getVisits = async ({id}) => {
+    const getVisits = async ({cod_house}) => {
         const cnx = await getConnection()
         const request = await cnx.request()
-        request.input( "id", sql.Int, id)
+        request.input( "cod_house", sql.Int, cod_house)
 
         return await request.query(sqlQueries.getVisits)
+    }
+
+    const getVisitUser = async ({cod_user}) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        console.log(cod_user)
+        request.input( "cod_user", sql.Int, cod_user)
+
+        return await request.query(sqlQueries.getVisitsUser)
     }
 
     const addVisits = async ({cod_user, cod_house, day_hour_visit, is_confirmed }) => {
@@ -47,6 +56,7 @@ const register = async({sql, getConnection}) => {
         addVisits,
         deleteVisits,
         getVisits,
+        getVisitUser,
         updateVisits
     }
 }
