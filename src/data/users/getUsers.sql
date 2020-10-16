@@ -1,3 +1,3 @@
 SELECT * FROM [dbo].[users]
 WHERE [id] = @id
-AND NOT [is_deleted];
+AND [is_deleted] = 0;

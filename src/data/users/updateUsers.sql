@@ -8,14 +8,3 @@ SET     [username] = @username
        , [modified_at] = CURRENT_TIMESTAMP
 WHERE   [id] = @id
  AND   [email] = @email;
-
-SELECT  [id]
-       , [username]
-       , [email]
-       , [password]
-       , [cellphone]
-       , [cpf]
-       , [address]
-FROM    [dbo].[users]
-WHERE   [id] = @id
- AND   [email] = @email;
