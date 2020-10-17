@@ -5,6 +5,8 @@ INSERT INTO [nexthome].[dbo].[houses]
       ,[price]
       ,[address]
       ,[description]
+      ,[number_room]
+      ,[number_bath]
 
 )
 VALUES
@@ -14,6 +16,8 @@ VALUES
    , @price
    , @address
    , @description
+   , @number_room
+   , @number_bath
 
 );
 
