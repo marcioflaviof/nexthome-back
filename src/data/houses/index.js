@@ -11,7 +11,7 @@ const register = async({sql, getConnection}) => {
         return await request.query(sqlQueries.getHouses)
     }
 
-    const addHouses = async ({ cod_user, landSize, price, address, description, number_room, number_bath }) => {
+    const addHouses = async ({ cod_user, landSize, price, address, description, number_bedroom, number_bath }) => {
         const cnx = await getConnection()
         const request = await cnx.request()
         request.input( "cod_user", sql.Int, cod_user)
@@ -19,13 +19,13 @@ const register = async({sql, getConnection}) => {
         request.input("price", sql.Float, price)
         request.input("address", sql.NVarChar(1000), address)
         request.input("description", sql.NVarChar(1000), description)
-        request.input("number_room", sql.Int, number_room)
+        request.input("number_bedroom", sql.Int, number_bedroom)
         request.input("number_bath", sql.Int, number_bath)
 
         return await request.query(sqlQueries.addHouses)
     }
 
-    const updateHouses = async ({ id, cod_user, landSize, price, address, description, number_room, number_bath }) => {
+    const updateHouses = async ({ id, cod_user, landSize, price, address, description, number_bedroom, number_bath }) => {
         const cnx = await getConnection()
         const request = await cnx.request()
         request.input( "id", sql.Int, id)
@@ -34,7 +34,7 @@ const register = async({sql, getConnection}) => {
         request.input("price", sql.Float, price)
         request.input("address", sql.NVarChar(1000), address)
         request.input("description", sql.NVarChar(1000), description)
-        request.input("number_room", sql.Int, number_room)
+        request.input("number_bedroom", sql.Int, number_bedroom)
         request.input("number_bath", sql.Int, number_bath)
 
         return await request.query(sqlQueries.updateHouses)

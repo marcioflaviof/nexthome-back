@@ -19,7 +19,7 @@ function validationHouse ( house ) {
         description: Joi.string()
         .max(1000),
 
-        number_room: Joi.number()
+        number_bedroom: Joi.number()
             .required(),
 
         number_bath: Joi.number()
