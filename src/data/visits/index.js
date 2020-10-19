@@ -15,7 +15,6 @@ const register = async({sql, getConnection}) => {
     const getVisitUser = async ({cod_user}) => {
         const cnx = await getConnection()
         const request = await cnx.request()
-        console.log(cod_user)
         request.input( "cod_user", sql.Int, cod_user)
 
         return await request.query(sqlQueries.getVisitsUser)

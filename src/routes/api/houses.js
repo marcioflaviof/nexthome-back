@@ -40,10 +40,13 @@ module.exports.register = async server => {
         path: "/update/house/{id}/{cod_user}",
         handler: async (request, h) => {
             try {
+                const {error, value} = validation.validationHousePut(request.payload)
+                if (error){return(error.message)}
+
                 const id = request.params.id
                 const cod_user = request.params.cod_user
                 const db = request.server.plugins.sql.client
-                const {landSize, price, address, description, number_bedroom, number_bath} = request.payload
+                const {landSize, price, address, description, number_bedroom, number_bath} = value
                 const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description, number_bedroom, number_bath})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"

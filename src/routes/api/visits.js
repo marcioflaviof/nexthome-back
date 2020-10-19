@@ -1,3 +1,5 @@
+const validation = require('./validation/validationVisits')
+
 module.exports.register = async server => {
     server.route( {
         method: "GET",
@@ -37,8 +39,11 @@ module.exports.register = async server => {
         path: "/register/visit",
         handler: async request => {
             try {
+                const {error, value} = validation.validationVisits(request.payload)
+                if (error){return(error.message)}
+
                 const db = request.server.plugins.sql.client
-                const {cod_user, cod_house, day_hour_visit, is_confirmed} = request.payload
+                const {cod_user, cod_house, day_hour_visit, is_confirmed} = value
                 const res = await db.visits.addVisits({cod_user, cod_house, day_hour_visit, is_confirmed})
 
                 return res.recordset[ 0 ]
@@ -53,9 +58,12 @@ module.exports.register = async server => {
         path: "/update/visit/{id}",
         handler: async (request, h) => {
             try {
+                const {error, value} = validation.validationVisits(request.payload)
+                if (error){return(error.message)}
+
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
-                const {cod_user, cod_house, day_hour_visit, is_confirmed} = request.payload
+                const {cod_user, cod_house, day_hour_visit, is_confirmed} = value
                 const res = await db.visits.updateVisits({id, cod_user, cod_house, day_hour_visit, is_confirmed})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"

@@ -25,5 +25,8 @@
     "joi": "^17.2.1",
     "mssql": "^6.2.3",
     "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "package": "^1.0.1"
   }
 }
