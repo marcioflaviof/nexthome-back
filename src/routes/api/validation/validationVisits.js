@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-function validationVisits ( house ) {
+function validationVisits ( visit ) {
 
     const schema = Joi.object({
         cod_user: Joi.number()
@@ -13,6 +13,7 @@ function validationVisits ( house ) {
             .required(),
         
         is_confirmed: Joi.number()
+            .integer()
             .min(0)
             .max(1)
             .required(),
@@ -22,7 +23,7 @@ function validationVisits ( house ) {
 
 
         
-    const {error, value } = schema.validate(house)
+    const {error, value } = schema.validate(visit)
     return {error, value}
 
 }
