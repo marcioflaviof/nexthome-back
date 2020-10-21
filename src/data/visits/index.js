@@ -20,6 +20,16 @@ const register = async({sql, getConnection}) => {
         return await request.query(sqlQueries.getVisitsUser)
     }
 
+    const getSpecificVisit = async ({id, cod_user, cod_house}) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        request.input( "id", sql.Int, id)
+        request.input( "cod_user", sql.Int, cod_user)
+        request.input( "cod_house", sql.Int, cod_house)
+
+        return await request.query(sqlQueries.getSpecificVisit)
+    }
+
     const addVisits = async ({cod_user, cod_house, day_hour_visit, is_confirmed }) => {
         const cnx = await getConnection()
         const request = await cnx.request()
@@ -54,6 +64,7 @@ const register = async({sql, getConnection}) => {
     return {
         addVisits,
         deleteVisits,
+        getSpecificVisit,
         getVisits,
         getVisitUser,
         updateVisits

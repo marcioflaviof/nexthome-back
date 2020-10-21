@@ -20,14 +20,14 @@ module.exports.register = async server => {
     server.route( {
         method: "POST",
         path: "/register/house",
-        handler: async request => {
+        handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationHouse(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ) )}
 
                 const db = request.server.plugins.sql.client
-                const {cod_user, landSize, price, address, description, number_bedroom, number_bath} = value
-                const res = await db.houses.addHouses({cod_user, landSize, price, address, description, number_bedroom, number_bath})
+                const {cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell} = value
+                const res = await db.houses.addHouses({cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell})
                 return res.recordset[ 0 ]
             } catch(err) {
                 console.log(err)
@@ -41,14 +41,14 @@ module.exports.register = async server => {
         handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationHousePut(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ))}
 
                 const id = request.params.id
                 const cod_user = request.params.cod_user
                 const db = request.server.plugins.sql.client
-                const {landSize, price, address, description, number_bedroom, number_bath} = value
-                const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description, number_bedroom, number_bath})
-
+                const {landSize, price, address, description, number_bedroom, number_bath, to_sell} = value
+                const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell})
+        
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {
                 console.log(err)

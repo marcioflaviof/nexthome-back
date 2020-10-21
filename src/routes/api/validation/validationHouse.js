@@ -24,6 +24,8 @@ function validationHouse ( house ) {
 
         number_bath: Joi.number()
             .required(),
+
+        to_sell: Joi.binary()
     
     })
 
@@ -56,7 +58,9 @@ function validationHousePut ( house ) {
 
         number_bath: Joi.number()
             .required(),
-    
+
+        to_sell: Joi.binary()
+        
     })
 
 

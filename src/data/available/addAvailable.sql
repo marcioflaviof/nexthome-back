@@ -4,7 +4,6 @@ INSERT INTO [nexthome].[dbo].[ta_available]
       ,[min_hour_available]
       ,[max_hour_available]
       ,[day_week_available]
-      ,[cad_dta_available]
 
 )
 VALUES
@@ -13,7 +12,6 @@ VALUES
    , @min_hour_available
    , @max_hour_available
    , @day_week_available
-   , @cad_dta_available
 
 );
 

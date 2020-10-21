@@ -19,9 +19,6 @@ function validationAvailable ( available ) {
             .min(0)
             .max(7)
             .required(),
-    
-        cad_dta_available: Joi.string()
-            .required()
         
     })
 
@@ -50,9 +47,6 @@ function validationAvailablePut ( available ) {
             .min(0)
             .max(7)
             .required(),
-    
-        cad_dta_available: Joi.string()
-            .required()
         
     })
 

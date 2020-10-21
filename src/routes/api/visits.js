@@ -33,14 +33,32 @@ module.exports.register = async server => {
         }
     })
 
+    server.route( {
+        method: "GET",
+        path: "/visit/{id}/{cod_user}/{cod_house}",
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const id = request.params.id
+                const cod_user = request.params.cod_user
+                const cod_house = request.params.cod_house
+                const res = await db.visits.getSpecificVisit({id, cod_user, cod_house})
+
+                return res.recordset
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    })
+
 
     server.route( {
         method: "POST",
         path: "/register/visit",
-        handler: async request => {
+        handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationVisits(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ))}
 
                 const db = request.server.plugins.sql.client
                 const {cod_user, cod_house, day_hour_visit, is_confirmed} = value
@@ -59,7 +77,7 @@ module.exports.register = async server => {
         handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationVisits(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ))}
 
                 const id = request.params.id
                 const db = request.server.plugins.sql.client

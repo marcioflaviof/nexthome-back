@@ -20,10 +20,10 @@ module.exports.register = async server => {
     server.route( {
         method: "POST",
         path: "/register/user",
-        handler: async request => {
+        handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationUser(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ))}
 
                 const db = request.server.plugins.sql.client
                 const {username, email, password, cellphone, cpf, address} = value
@@ -41,7 +41,7 @@ module.exports.register = async server => {
         handler: async (request, h) => {
             try {
                 const {error, value} = validation.validationUser(request.payload)
-                if (error){return(error.message)}
+                if (error){return(h.response(error.message).code( 400 ))}
 
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
