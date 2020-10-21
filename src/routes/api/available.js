@@ -1,4 +1,5 @@
 const validation = require('./validation/validationAvailable')
+const dayBuilder = require('../utils')
 
 // Available refers to available hours the owner has to effectively sell the house (show, meet in person, etc.)
 
@@ -13,6 +14,23 @@ module.exports.register = async server => {
                 const res = await db.available.getAvailable({id_available_hour})
 
                 return res.recordset
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    })
+
+    server.route( {
+        method: "GET",
+        path: "/available/day/{cod_house}",
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const cod_house = request.params.cod_house
+                const res = await db.available.getDayAvailable({cod_house})
+                const day = res.recordset
+
+                return dayBuilder(day[0].min_hour_available, day[0].max_hour_available)
             } catch(err) {
                 console.log(err)
             }

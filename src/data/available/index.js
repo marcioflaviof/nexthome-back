@@ -1,3 +1,4 @@
+const { func } = require('joi')
 const utils = require('../utils')
 
 const register = async({sql, getConnection}) => {
@@ -10,6 +11,15 @@ const register = async({sql, getConnection}) => {
         
         return await request.query(sqlQueries.getAvailable)
     }
+
+    const getDayAvailable = async ({ cod_house }) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        request.input( "cod_house", sql.Int, cod_house)
+
+        return await request.query(sqlQueries.getDayAvailable)
+    }
+
 
     const addAvailable = async ({ cod_house, min_hour_available, max_hour_available, day_week_available}) => {
         const cnx = await getConnection()
@@ -48,6 +58,7 @@ const register = async({sql, getConnection}) => {
         addAvailable,
         deleteAvailable,
         getAvailable,
+        getDayAvailable,
         updateAvailable
     }
 }
