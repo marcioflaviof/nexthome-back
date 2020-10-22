@@ -20,6 +20,15 @@ const register = async({sql, getConnection}) => {
         return await request.query(sqlQueries.getDayAvailable)
     }
 
+    const getDayAvailableDate = async ({ cod_house, date }) => {
+        const cnx = await getConnection()
+        const request = await cnx.request()
+        request.input( "cod_house", sql.Int, cod_house)
+        request.input("date",sql.Date, date)
+
+        return await request.query(sqlQueries.getDayAvailableDate)
+    }
+
 
     const addAvailable = async ({ cod_house, min_hour_available, max_hour_available, day_week_available}) => {
         const cnx = await getConnection()
@@ -59,6 +68,7 @@ const register = async({sql, getConnection}) => {
         deleteAvailable,
         getAvailable,
         getDayAvailable,
+        getDayAvailableDate,
         updateAvailable
     }
 }

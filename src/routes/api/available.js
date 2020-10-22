@@ -29,8 +29,36 @@ module.exports.register = async server => {
                 const cod_house = request.params.cod_house
                 const res = await db.available.getDayAvailable({cod_house})
                 const day = res.recordset
+                let array_retorno = [];
+                day.forEach(element => {
+                    array_retorno.push(dayBuilder(element.min_hour_available,element.max_hour_available,element.day_week_available))
+                });
 
-                return dayBuilder(day[0].min_hour_available, day[0].max_hour_available)
+                return array_retorno
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    })
+
+    //mesma coisa que a função de cima, a diferença é que agora a gente vai passar uma data.
+    //Essa função vai pegar essa data, identificar o dia da semana e retornar os horários disponíveis  
+    server.route( {
+        method: "GET",
+        path: "/available/day/{cod_house}/{date}",
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const cod_house = request.params.cod_house
+                const date = request.params.date
+                const res = await db.available.getDayAvailableDate({cod_house,date})
+                const day = res.recordset
+                let array_retorno = [];
+                day.forEach(element => {
+                    array_retorno.push(dayBuilder(element.min_hour_available,element.max_hour_available,element.day_week_available))
+                });
+
+                return array_retorno.length > 0? array_retorno : ["tchau"]
             } catch(err) {
                 console.log(err)
             }

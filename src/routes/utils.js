@@ -1,4 +1,4 @@
-function dayBuilder(min_hour, max_hour) {
+function dayBuilder(min_hour, max_hour, day) {
 
     let array_hours = []
     
@@ -7,6 +7,7 @@ function dayBuilder(min_hour, max_hour) {
     }
 
     let jHours = {
+        day_week: day, 
         hours: array_hours
     }
 
