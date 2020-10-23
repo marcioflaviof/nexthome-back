@@ -6,7 +6,7 @@ module.exports.register = async server => {
             try {
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
-                const res = await db.tb_local.getLocal(id)
+                const res = await db.local.getLocal({id})
 
                 return res.recordset
             } catch(err) {
@@ -23,7 +23,7 @@ module.exports.register = async server => {
 
                 const db = request.server.plugins.sql.client
                 const {name, cod_local_father, cod_type_local} = request.payload
-                const res = await db.tb_local.addLocal({name, cod_local_father, cod_type_local})
+                const res = await db.local.addLocal({name, cod_local_father, cod_type_local})
                 return res.recordset[ 0 ]
             } catch(err) {
                 console.log(err)
@@ -39,7 +39,7 @@ module.exports.register = async server => {
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
                 const {name} = request.payload
-                const res = await db.tb_local.updateLocal({id, name})
+                const res = await db.local.updateLocal({id, name})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {
@@ -55,7 +55,7 @@ module.exports.register = async server => {
             try{
                 const id = request.params.id
                 const db = request.server.plugins.sql.client
-                const res = await db.tb_local.deleteLocal({id})
+                const res = await db.local.deleteLocal({id})
 
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {

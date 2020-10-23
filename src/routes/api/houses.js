@@ -26,8 +26,8 @@ module.exports.register = async server => {
                 if (error){return(h.response(error.message).code( 400 ) )}
 
                 const db = request.server.plugins.sql.client
-                const {cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell} = value
-                const res = await db.houses.addHouses({cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell})
+                const {cod_user, landSize, price, address, description, number_bedroom, number_bath, local, to_sell} = value
+                const res = await db.houses.addHouses({cod_user, landSize, price, address, description, number_bedroom, number_bath, local, to_sell})
                 return res.recordset[ 0 ]
             } catch(err) {
                 console.log(err)
@@ -46,8 +46,8 @@ module.exports.register = async server => {
                 const id = request.params.id
                 const cod_user = request.params.cod_user
                 const db = request.server.plugins.sql.client
-                const {landSize, price, address, description, number_bedroom, number_bath, to_sell} = value
-                const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description, number_bedroom, number_bath, to_sell})
+                const {landSize, price, address, description, number_bedroom, number_bath, local, to_sell} = value
+                const res = await db.houses.updateHouses({id, cod_user, landSize, price, address, description, number_bedroom, number_bath, local, to_sell})
         
                 return res.rowsAffected[ 0 ] === 1 ? h.response().code( 204 ) : "Not found"
             } catch(err) {

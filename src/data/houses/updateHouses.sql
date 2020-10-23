@@ -5,6 +5,7 @@ SET    [landSize] = @landSize
       ,[description] = @description
       ,[number_bedroom] = @number_bedroom
       ,[number_bath] = @number_bath
+      , [local] = @local
       ,[to_sell] = @to_sell
       , [modified_at] = CURRENT_TIMESTAMP
 WHERE   [id] = @id

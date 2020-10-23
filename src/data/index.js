@@ -2,6 +2,8 @@ const users = require('./users')
 const houses = require('./houses')
 const visits = require('./visits')
 const available = require('./available')
+const local = require('./tb_local')
+const localType = require('./td_local_type')
 const sql = require('mssql')
 
 
@@ -39,7 +41,9 @@ const client = async(server, config) => {
         users: await users.register({ sql, getConnection }),
         houses: await houses.register({ sql, getConnection }),
         visits: await visits.register({ sql, getConnection }),
-        available: await available.register ({ sql, getConnection })
+        available: await available.register ({ sql, getConnection }),
+        local: await local.register ({ sql, getConnection }),
+        localType: await localType.register ({ sql, getConnection })
     }
 }
 
