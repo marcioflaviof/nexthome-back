@@ -1,4 +1,3 @@
-const { func } = require('joi')
 const utils = require('../utils')
 
 const register = async({sql, getConnection}) => {

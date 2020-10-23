@@ -1,4 +1,3 @@
-const { chmod } = require('fs-extra')
 const utils = require('../utils')
 
 const register = async({sql, getConnection}) => {
